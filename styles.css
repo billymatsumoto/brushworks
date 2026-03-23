@@ -35,6 +35,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   color: var(--ink);
   font-family: "Bricolage Grotesque", "Avenir Next", "Trebuchet MS", sans-serif;
   background:
@@ -83,6 +84,19 @@ img {
 
 .site-shell {
   overflow-x: clip;
+}
+
+.topbar-inner > *,
+.hero-grid > *,
+.manifesto-grid > *,
+.gallery-grid > *,
+.art-card > *,
+.artist-grid > *,
+.artist-card > *,
+.events-layout > *,
+.event-card > *,
+.visit-grid > * {
+  min-width: 0;
 }
 
 .topbar {
@@ -242,7 +256,9 @@ img {
   margin: 0 0 0.9rem;
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.55rem;
+  max-width: 100%;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -287,6 +303,7 @@ h3 {
   margin: 0;
   line-height: 0.96;
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 h1 {
@@ -315,6 +332,7 @@ h3 {
 p {
   margin: 0;
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .hero-text,
@@ -433,7 +451,7 @@ p {
 .hero-badge {
   position: absolute;
   top: 0;
-  right: 2%;
+  right: clamp(0.35rem, 1.8vw, 2%);
   z-index: 2;
   width: clamp(118px, 16vw, 170px);
   aspect-ratio: 1 / 1;
@@ -764,11 +782,13 @@ p {
   right: 16px;
   top: 50%;
   z-index: 1;
-  font-size: clamp(1.3rem, 4.4vw, 2.4rem);
+  max-width: calc(100% - 32px);
+  font-size: clamp(1rem, 4vw, 2.4rem);
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   line-height: 0.92;
   color: rgba(255, 250, 241, 0.18);
+  overflow-wrap: anywhere;
   transform: translateY(-50%);
 }
 
@@ -786,7 +806,7 @@ p {
   right: 16px;
   bottom: 16px;
   z-index: 2;
-  max-width: 26ch;
+  max-width: min(100%, 26ch);
   padding: 0.9rem 1rem;
   border-radius: 20px;
   color: var(--paper);
@@ -1064,6 +1084,8 @@ p {
   border-radius: 999px;
   color: var(--paper);
   background: rgba(255, 250, 241, 0.06);
+  text-align: center;
+  white-space: normal;
   font-weight: 800;
   transition:
     transform 180ms ease,
@@ -1247,8 +1269,14 @@ p {
     align-items: flex-start;
   }
 
+  .brand {
+    flex: 1 1 auto;
+  }
+
   .nav-toggle {
     display: inline-flex;
+    margin-left: auto;
+    flex: 0 0 auto;
   }
 
   .topnav {
@@ -1285,7 +1313,8 @@ p {
   }
 
   .hero-badge {
-    right: 0;
+    right: 0.35rem;
+    width: clamp(96px, 24vw, 132px);
   }
 
   .event-card {
@@ -1301,8 +1330,29 @@ p {
 }
 
 @media (max-width: 640px) {
+  .topbar {
+    padding: 12px 0;
+  }
+
+  .topbar-inner {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
   .brand-copy span {
     display: none;
+  }
+
+  .brand-copy strong {
+    font-size: 0.94rem;
+  }
+
+  .eyebrow,
+  .panel-kicker,
+  .bench-label,
+  .card-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-grid {
@@ -1322,6 +1372,13 @@ p {
 
   .hero-stage::before {
     inset: 8% 2% 18% 6%;
+  }
+
+  .hero-badge {
+    top: -0.35rem;
+    right: 0.25rem;
+    width: 88px;
+    padding: 7px;
   }
 
   .section {
